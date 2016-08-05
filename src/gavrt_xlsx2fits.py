@@ -66,6 +66,10 @@ def maindf2scans(dataframe, index_array):
                                                                                                                                         
     print "Seperate scans written to disk as Excel files. "
 
+directory = 'scans_xlsx'
+if not os.path.exists(directory):
+        os.makedirs(directory)
+
 maindf2scans(dataframe, timepoints)
 
 # This part reads in the seperate Excel scan files, converts them to fits
@@ -97,9 +101,14 @@ path = './scans_xlsx'
 num_files = len([f for f in os.listdir(path)
                     if os.path.isfile(os.path.join(path, f))])
 
+directory = 'scans_fits'
+if not os.path.exists(directory):
+        os.makedirs(directory)
+
+
 for num in range(num_files):
     scan = pd.read_excel('scans_xlsx/df_scan_' + str(num) + '.xlsx')
     scan_xlsx2fits(scan, num)
                 
-print "scans in Excel xlsx format converted and written to disk as a Fits files. "
+print "scans in Excel xlsx format converted and written to disk as Fits files. "
 
